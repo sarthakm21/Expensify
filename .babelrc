@@ -1,0 +1,16 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread"
+  ]
+}
+
+/* First plugin lets us use methods in classes without having to bind them again and again */
+/* Second plugin lets us use object spread syntax(which is not yet supported by all browsers) */
+
+/* Adding babel presets and plugins in webpack config file is not a good practice because if there are files that just use babel and not
+webpack, they will not consider webpack config file. On the other hand, all babel plugins will consider .babelrc file. 
+FOR MORE CLARITY, refer: 
+https://stackoverflow.com/questions/43206062/why-do-i-have-to-put-babel-presets-inside-babelrc-and-webpack-config-js
+*/
