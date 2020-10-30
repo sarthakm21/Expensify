@@ -5,7 +5,8 @@
   "author": "Sarthak",
   "license": "MIT",
   "scripts": {
-    "build": "webpack",
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
     "dev-server": "webpack-dev-server",
     "test": "jest",
@@ -32,6 +33,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "enzyme-to-json": "^3.6.1",
+    "mini-css-extract-plugin": "^1.2.1",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
