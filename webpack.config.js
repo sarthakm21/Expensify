@@ -8,7 +8,7 @@ module.exports = (env) => {
   return {
     entry: "./src/app.js", //The file to bundle
     output: {
-      path: path.join(__dirname, "public"), //output requires the complete path of the file in our system & __dirname provides the path to the current file in the system and it is joined with public folder
+      path: path.join(__dirname, "public", "dist"), //output requires the complete path of the file in our system & __dirname provides the path to the current file in the system and it is joined with public folder
       filename: "bundle.js", // The name of the final bundled file
     },
     /*  We need loaders to transform some part of our code. For example, we will use babel-loader(along with the react and env presets) 
@@ -50,6 +50,8 @@ module.exports = (env) => {
     mode: isProduction ? "production" : "development",
     devServer: {
       contentBase: path.join(__dirname, "public"),
+      publicPath: '/dist/',     // Specifies where the compiled assets live
+      
       historyApiFallback: true, //We are using client side rendering, and the browser by default tries to GET a page from the server
     }, //causing a 404 error. This property would redirect it to our index.html page and the control will be transfered to react router
     devtool: "source-map",
