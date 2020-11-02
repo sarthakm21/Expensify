@@ -11,7 +11,8 @@
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
     "dev-server": "webpack-dev-server",
     "test": "jest",
-    "dev-test": "jest --watchAll"
+    "dev-test": "jest --watchAll",
+    "heroku-postbuild": "yarn run prod:build"
   },
   "jest": {
     "setupFilesAfterEnv": [
