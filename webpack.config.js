@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CSSExtract = new MiniCssExtractPlugin({ filename: 'styles.css' });
 
 module.exports = (env) => {
-  //? SWITCH THE SRC IN index.html's SCRIPT tag to "/bundle.js" WHEN USING WEBPACK DEV SERVER
+  //! SWITCH THE SRC IN index.html's SCRIPT tag to "/bundle.js" WHEN USING WEBPACK DEV SERVER
   const isProduction = env === "production";
   return {
     entry: "./src/app.js", //The file to bundle
@@ -12,8 +12,8 @@ module.exports = (env) => {
       filename: "bundle.js", // The name of the final bundled file
     },
     /*  We need loaders to transform some part of our code. For example, we will use babel-loader(along with the react and env presets) 
-          to transform jsx code into pure browser-readable javascript. Similarly, there are loaders for typescript, sass, etc,
-          that tranform our code into its browser readable variant*/
+    to transform jsx code into pure browser-readable javascript. Similarly, there are loaders for typescript, sass, etc,
+    that tranform our code into its browser readable variant*/
 
     module: {
       rules: [
