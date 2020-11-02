@@ -9,6 +9,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(public, 'index.html'))
 })
 
-app.listen(8080, (done) => {
+app.listen(process.env.PORT || 8080, (done) => {
     console.log("Listening to port 8080")
 })
