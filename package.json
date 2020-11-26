@@ -10,14 +10,14 @@
     "build:prod": "webpack -p --env production",
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
     "dev-server": "webpack-dev-server",
-    "test": "jest",
-    "dev-test": "jest --watchAll",
+    "test": "cross-env NODE_ENV=test jest",
+    "dev-test": "cross-env NODE_ENV=test jest --watchAll",
     "heroku-postbuild": "yarn run build:prod"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "raf/polyfill",
-      "<rootDir>src/tests/setupTests.js"
+      "<rootDir>/src/tests/setupTests.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -31,8 +31,11 @@
     "@babel/preset-react": "^7.10.4",
     "babel-cli": "6.24.1",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase": "^8.0.0",
     "mini-css-extract-plugin": "^1.2.1",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
@@ -46,6 +49,7 @@
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "uuid": "^8.3.1",
@@ -58,6 +62,7 @@
     "jest": "^26.6.0",
     "raf": "^3.4.1",
     "react-test-renderer": "^17.0.0",
+    "redux-mock-store": "^1.5.4",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "3.11.0"
   }

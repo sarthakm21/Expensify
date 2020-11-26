@@ -1,4 +1,15 @@
-import { addExpense, editExpense, removeExpense } from "../../actions/expenses";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
+import {
+  addExpense,
+  editExpense,
+  removeExpense,
+  startAddExpense,
+} from "../../actions/expenses";
+import expenses from "../fixtures/expenseData";
+import db from "../../firebase/firebase";
+
+const createMockStore = configureMockStore([thunk]); //takes in an optional array of middleware
 
 test("should setup remove expense action generator", () => {
   const removeObject = removeExpense("abc123");
@@ -29,33 +40,75 @@ test("should setup edit expense generator", () => {
 });
 
 test("should setup add expense action generator with provided params", () => {
+  const addObject = addExpense(expenses[2]);
+  expect(addObject).toEqual({
+    type: "ADD_EXPENSE",
+    expense: expenses[2],
+  });
+});
+
+test("should add expense to the database", (done) => {
+  const store = createMockStore({});
   const expenseData = {
-    description: "Alcohol",
-    amount: 1000,
-    createdAt: 22,
-    note: "Tis illegal at your age :(",
+    description: "Candies",
+    amount: 100,
+    createdAt: 1092341,
+    note: "The good stranger suddenly stopped giving me candy",
   };
-  const addObject = addExpense(expenseData);
-
-  expect(addObject).toEqual({
-    type: "ADD_EXPENSE",
-    expense: {
-      ...expenseData,
-      id: expect.any(String),
-    },
+  store.dispatch(startAddExpense(expenseData)).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: "ADD_EXPENSE",
+      expense: {
+        id: expect.any(String),
+        ...expenseData,
+      },
+    });
+    db.ref(`expenses/${actions[0].expense.id}`)
+      .once("value")
+      .then((snapshot) => {
+        expect(snapshot.val()).toEqual(expenseData);
+        done(); //If we use this optional parameter, the jest test case does not run until this param is called
+      });
   });
 });
 
-test("should setup add expense action generator with default values", () => {
-  const addObject = addExpense();
-  expect(addObject).toEqual({
-    type: "ADD_EXPENSE",
-    expense: {
-      id: expect.any(String),
-      description: "",
-      note: "",
-      amount: 0,
-      createdAt: 0,
-    },
+test("should add expense to the database with default values", (done) => {
+  const store = createMockStore({});
+  const expenseDefault = {
+    description: "",
+    amount: 0,
+    createdAt: 0,
+    note: "",
+  };
+  store.dispatch(startAddExpense()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: "ADD_EXPENSE",
+      expense: {
+        id: expect.any(String),
+        ...expenseDefault,
+      },
+    });
+    db.ref(`expenses/${actions[0].expense.id}`)
+      .once("value")
+      .then((snapshot) => {
+        expect(snapshot.val()).toEqual(expenseDefault);
+        done(); //If we use this optional parameter, the jest test case does not run until this param is called
+      });
   });
 });
+
+// test("should setup add expense action generator with default values", () => {
+//   const addObject = addExpense();
+//   expect(addObject).toEqual({
+//     type: "ADD_EXPENSE",
+//     expense: {
+//       id: expect.any(String),
+//       description: "",
+//       note: "",
+//       amount: 0,
+//       createdAt: 0,
+//     },
+//   });
+// });

@@ -1,3 +1,6 @@
 node_modules/
 public/dist/
 yarn-error.log
+.env
+.env.test
+.env.development

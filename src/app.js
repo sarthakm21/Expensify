@@ -6,6 +6,7 @@ import configureStore from "./store/configureStore";
 import "normalize.css/normalize.css"; //A library to reset css code added by browser so that our app starts from the same state in every browser
 import "react-dates/lib/css/_datepicker.css";
 import "./styles/styles.scss";
+import "./firebase/firebase";
 
 const store = configureStore();
 console.log("testing");
