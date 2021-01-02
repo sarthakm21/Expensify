@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import db from "../firebase/firebase";
 
 //ADD_EXPENSE
@@ -7,7 +6,7 @@ const addExpense = (expense) => ({
   expense,
 });
 
-export const startAddExpense = (expenseData = {}) => {
+const startAddExpense = (expenseData = {}) => {
   return (dispatch) => {
     const {
       description = "",
@@ -37,7 +36,7 @@ const removeExpense = (id) => ({
   id,
 });
 
-export const startRemoveExpense = (id) => {
+const startRemoveExpense = (id) => {
   return (dispatch) => {
     db.ref(`expenses/${id}`)
       .remove()
@@ -55,7 +54,7 @@ const editExpense = (id, updates) => ({
   updates,
 });
 
-export const startEditExpense = (id, updates) => {
+const startEditExpense = (id, updates) => {
   return (dispatch) => {
     db.ref(`expenses/${id}`)
       .update(updates)
@@ -66,4 +65,35 @@ export const startEditExpense = (id, updates) => {
   };
 };
 
-export { addExpense, removeExpense, editExpense };
+//SET EXPENSE
+const setExpense = (expenses) => ({
+  type: "SET_EXPENSE",
+  expenses,
+});
+
+const startSetExpense = () => {
+  return (dispatch) => {
+    return db
+      .ref("expenses")
+      .once("value")
+      .then((snapshot) => {
+        const expenses = [];
+        snapshot.forEach((child) => {
+          expenses.push({ id: child.key, ...child.val() });
+        });
+        dispatch(setExpense(expenses));
+      })
+      .catch((e) => console.log(e));
+  };
+};
+
+export {
+  addExpense,
+  removeExpense,
+  editExpense,
+  setExpense,
+  startAddExpense,
+  startEditExpense,
+  startRemoveExpense,
+  startSetExpense,
+};

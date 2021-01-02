@@ -3,13 +3,25 @@ import thunk from "redux-thunk";
 import {
   addExpense,
   editExpense,
+  setExpense,
   removeExpense,
   startAddExpense,
+  startSetExpense,
 } from "../../actions/expenses";
 import expenses from "../fixtures/expenseData";
 import db from "../../firebase/firebase";
 
 const createMockStore = configureMockStore([thunk]); //takes in an optional array of middleware
+
+beforeEach((done) => {
+  let expensesData = {};
+  expenses.forEach(({ id, ...expense }) => {
+    expensesData[Number(id)] = expense;
+  });
+  db.ref("expenses")
+    .set(expensesData)
+    .then(() => done()); //the done method ensures that the tests wait for this data fetching to finish before running
+});
 
 test("should setup remove expense action generator", () => {
   const removeObject = removeExpense("abc123");
@@ -96,6 +108,26 @@ test("should add expense to the database with default values", (done) => {
         expect(snapshot.val()).toEqual(expenseDefault);
         done(); //If we use this optional parameter, the jest test case does not run until this param is called
       });
+  });
+});
+
+test("should setup set expense with correct data", () => {
+  const action = setExpense(expenses);
+  expect(action).toEqual({
+    type: "SET_EXPENSE",
+    expenses,
+  });
+});
+
+test("should fetch expenses from firebase", (done) => {
+  const store = createMockStore({});
+  store.dispatch(startSetExpense()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: "SET_EXPENSE",
+      expenses,
+    });
+    done();
   });
 });
 

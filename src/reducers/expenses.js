@@ -17,6 +17,9 @@ export default (state = [], action) => {
         //Object spread syntax does not work with many browsers so we need to add a babel plugin for this.
       });
 
+    case "SET_EXPENSE":
+      return action.expenses;
+
     default:
       return state;
   }
