@@ -13,16 +13,14 @@ exports[`should render Header component 1`] = `
   </NavLink>
   <NavLink
     activeClassName="isActive"
-    to="/help"
-  >
-    Help
-  </NavLink>
-  <NavLink
-    activeClassName="isActive"
-    exact={true}
-    to="/"
+    to="/dashboard"
   >
     Dashboard
   </NavLink>
+  <button
+    onClick={[MockFunction]}
+  >
+    Logout
+  </button>
 </div>
 `;

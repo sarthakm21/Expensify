@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AppRouter from "./Routers/AppRouter";
 import { Provider } from "react-redux";
-import configureStore from "./store/configureStore";
-import { startSetExpense } from "./actions/expenses";
 import "normalize.css/normalize.css"; //A library to reset css code added by browser so that our app starts from the same state in every browser
 import "react-dates/lib/css/_datepicker.css";
 import "./styles/styles.scss";
-import "./firebase/firebase";
+import { firebase } from "./firebase/firebase";
+import { startSetExpense } from "./actions/expenses";
+import AppRouter, { history } from "./Routers/AppRouter";
+import configureStore from "./store/configureStore";
+import { login, logout } from "./actions/auth";
 
 const store = configureStore();
 console.log("testing");
@@ -18,7 +19,27 @@ const App = () => (
   </Provider>
 );
 
-ReactDOM.render(<p>Loading</p>, document.getElementById("container"));
-store.dispatch(startSetExpense()).then(() => {
+let hasRendered = false;
+const renderApp = () => {
+  if (hasRendered) return;
   ReactDOM.render(<App />, document.getElementById("container"));
+  hasRendered = true;
+};
+
+ReactDOM.render(<p>Loading</p>, document.getElementById("container"));
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+    console.log("Log In");
+    store.dispatch(startSetExpense()).then(() => {
+      renderApp();
+    });
+    console.log(user);
+    history.location.pathname === "/" && history.push("/dashboard");
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push("/");
+  }
 });

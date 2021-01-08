@@ -7,7 +7,8 @@ const addExpense = (expense) => ({
 });
 
 const startAddExpense = (expenseData = {}) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       description = "",
       note = "",
@@ -16,7 +17,7 @@ const startAddExpense = (expenseData = {}) => {
     } = expenseData;
     const expense = { description, note, amount, createdAt };
     return db
-      .ref("expenses") //returning this so that the tests can be run on this
+      .ref(`users/${uid}/expenses`) //returning this so that the tests can be run on this
       .push(expense)
       .then((data) => {
         dispatch(
@@ -37,10 +38,11 @@ const removeExpense = (id) => ({
 });
 
 const startRemoveExpense = (id) => {
-  return (dispatch) => {
-    db.ref(`expenses/${id}`)
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    db.ref(`users/${uid}/expenses/${id}`)
       .remove()
-      .then((data) => {
+      .then(() => {
         dispatch(removeExpense(id));
       })
       .catch((e) => console.log("Some error occured", e));
@@ -55,10 +57,11 @@ const editExpense = (id, updates) => ({
 });
 
 const startEditExpense = (id, updates) => {
-  return (dispatch) => {
-    db.ref(`expenses/${id}`)
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    db.ref(`users/${uid}/expenses/${id}`)
       .update(updates)
-      .then((data) => {
+      .then(() => {
         dispatch(editExpense(id, updates));
       })
       .catch((e) => console.log("Some error occured", e));
@@ -72,9 +75,10 @@ const setExpense = (expenses) => ({
 });
 
 const startSetExpense = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return db
-      .ref("expenses")
+      .ref(`users/${uid}/expenses`)
       .once("value")
       .then((snapshot) => {
         const expenses = [];
@@ -83,7 +87,7 @@ const startSetExpense = () => {
         });
         dispatch(setExpense(expenses));
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log("Some error occured", e));
   };
 };
 
