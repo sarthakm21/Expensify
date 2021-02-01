@@ -18,12 +18,21 @@ export class EditExpense extends React.Component {
   render() {
     return (
       <div>
-        <ExpenseForm
-          expense={this.props.expense} //The expense received from mapStateToProps, i.e. the expense with an id same as the props.match.params.id
-          onSubmit={this.onSubmit}
-          text="Edit Expense"
-        />
-        <button onClick={this.onRemove}>Remove</button>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Edit Expense</h1>
+          </div>
+        </div>
+        <div className="content-container">
+          <ExpenseForm
+            expense={this.props.expense} //The expense received from mapStateToProps, i.e. the expense with an id same as the props.match.params.id
+            onSubmit={this.onSubmit}
+            text="Edit Expense"
+          />
+          <button className="button button--secondary" onClick={this.onRemove}>
+            Remove
+          </button>
+        </div>
       </div>
     );
   }

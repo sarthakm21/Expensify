@@ -68,39 +68,43 @@ class ExpenseForm extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.error}
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Description"
-            autoFocus
-            value={this.state.description}
-            onChange={this.handleDescriptionChange}
-          />
-          <input
-            type="text"
-            placeholder="Amount"
-            value={this.state.amount}
-            onChange={this.handleAmountChange}
-          />
-          <SingleDatePicker
-            date={this.state.createdAt}
-            onDateChange={this.handleDateChange}
-            focused={this.state.calenderFocused}
-            onFocusChange={this.handleFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={() => false} //To allow user to enter the dates in the past as well
-            displayFormat="DD MMM YYYY"
-          />
-          <textarea
-            placeholder="Add some note for the expense"
-            value={this.state.note}
-            onChange={this.handleNoteChange}
-          ></textarea>
-          <button>{this.props.text}</button>
-        </form>
-      </div>
+      <form className="form" onSubmit={this.handleSubmit}>
+        {this.state.error && <p className="form__error">{this.state.error}</p>}
+        <input
+          className="input"
+          type="text"
+          placeholder="Description"
+          autoFocus
+          value={this.state.description}
+          onChange={this.handleDescriptionChange}
+        />
+        <input
+          className="input"
+          type="text"
+          placeholder="Amount"
+          value={this.state.amount}
+          onChange={this.handleAmountChange}
+        />
+        <SingleDatePicker
+          date={this.state.createdAt}
+          onDateChange={this.handleDateChange}
+          focused={this.state.calenderFocused}
+          onFocusChange={this.handleFocusChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false} //To allow user to enter the dates in the past as well
+          displayFormat="DD MMM YYYY"
+          block
+        />
+        <textarea
+          className="textarea"
+          placeholder="Add some note for the expense"
+          value={this.state.note}
+          onChange={this.handleNoteChange}
+        ></textarea>
+        <div>
+          <button className="button">{this.props.text}</button>
+        </div>
+      </form>
     );
   }
 }

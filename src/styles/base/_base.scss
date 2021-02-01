@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box; //Gives the element size that we specify, then reduces the space specified for padding, border, etc.
+  //Default is content-box, which gives the element the size that you specify, plus the padding and the border.
+}
+
 html {
   font-size: 62.5%;
 }

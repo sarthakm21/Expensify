@@ -1,0 +1,16 @@
+.expense-filter {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $size-md;
+  @media (min-width: $desktop-breakpoint) {
+    flex-direction: row;
+    margin-bottom: $size-lg;
+    justify-content: center;
+  }
+  &__item {
+    margin-bottom: $size-sm;
+    @media (min-width: $desktop-breakpoint) {
+      margin: 0 $size-sm 0 0;
+    }
+  }
+}
