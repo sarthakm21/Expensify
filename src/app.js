@@ -9,6 +9,7 @@ import { startSetExpense } from "./actions/expenses";
 import AppRouter, { history } from "./Routers/AppRouter";
 import configureStore from "./store/configureStore";
 import { login, logout } from "./actions/auth";
+import Loader from "./components/Loader";
 
 const store = configureStore();
 console.log("testing");
@@ -26,7 +27,7 @@ const renderApp = () => {
   hasRendered = true;
 };
 
-ReactDOM.render(<p>Loading</p>, document.getElementById("container"));
+ReactDOM.render(<Loader />, document.getElementById("container"));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {

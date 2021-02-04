@@ -1,26 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Header component 1`] = `
-<div>
-  <h1>
-    Expensify
-  </h1>
-  <NavLink
-    activeClassName="isActive"
-    to="/create"
+<div
+  className="header"
+>
+  <div
+    className="content-container"
   >
-    Create Expense
-  </NavLink>
-  <NavLink
-    activeClassName="isActive"
-    to="/dashboard"
-  >
-    Dashboard
-  </NavLink>
-  <button
-    onClick={[MockFunction]}
-  >
-    Logout
-  </button>
+    <div
+      className="header__content"
+    >
+      <Link
+        className="header__title"
+        to="/dashboard"
+      >
+        <h1>
+          Expensify
+        </h1>
+      </Link>
+      <button
+        className="button button--link"
+        onClick={[MockFunction]}
+      >
+        Logout
+      </button>
+    </div>
+  </div>
 </div>
 `;

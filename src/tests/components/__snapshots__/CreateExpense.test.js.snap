@@ -2,8 +2,22 @@
 
 exports[`should render create expense component 1`] = `
 <div>
-  <div>
-    This is the create element
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h1
+        className="page-header__title"
+      >
+        Add new expense
+      </h1>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
     <ExpenseForm
       onSubmit={[Function]}
       text="Add Expense"
