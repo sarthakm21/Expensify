@@ -1,14 +1,20 @@
-.box-layout {
-  background-color: aqua;
-  background-size: cover;
+.login-container {
   display: flex;
+  background-color: $light-gray;
+  background-size: cover;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100vw;
+  @media (max-width: $desktop-breakpoint) {
+    flex-direction: column;
+  }
+}
 
+.box-layout {  
   &__box {
-    background: fade-out($color: #ffffff, $amount: 0.15);
+    // border: 1px solid rgb(211, 206, 206);
+    // background: fade-out($color: #ffffff, $amount: 0.15);
     border-radius: 3px;
     text-align: center;
     width: 25rem;
@@ -16,7 +22,30 @@
   }
 
   &__title {
+    font-size: 5rem;
     margin: 0 0 $size-md 0;
     line-height: 1;
+  }
+
+  p{
+    font-size: 1.7rem;
+    margin-bottom: 5rem;
+  }
+}
+
+.login-background {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  img{
+    width: 50rem;
+    @media (max-width: $desktop-breakpoint) {
+      right: 50vh;
+      width: 30rem;
+    }
+  }
+  @media (max-width: $desktop-breakpoint) {
+    position: relative;
+    margin-top: 10rem;
   }
 }
