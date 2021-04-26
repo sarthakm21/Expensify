@@ -2,25 +2,37 @@
 
 exports[`should render login page component 1`] = `
 <div
-  className="box-layout"
+  className="login-container"
 >
   <div
-    className="box-layout__box"
+    className="box-layout"
   >
-    <h1
-      className="box-layout__title"
+    <div
+      className="box-layout__box"
     >
-      Expensify
-    </h1>
-    <p>
-      Get your expenses on track
-    </p>
-    <button
-      className="button"
-      onClick={[MockFunction]}
-    >
-      Login with Google
-    </button>
+      <h1
+        className="box-layout__title"
+      >
+        Expensify
+      </h1>
+      <p>
+        Get your expenses on track
+      </p>
+      <button
+        className="button"
+        onClick={[MockFunction]}
+      >
+        Login with Google
+      </button>
+    </div>
+  </div>
+  <div
+    className="login-background"
+  >
+    <img
+      alt="bg"
+      src="images/wallet.svg"
+    />
   </div>
 </div>
 `;
